@@ -1,0 +1,40 @@
+<html>
+
+<head>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+  <style>
+    svg {
+      background-color: #333333;
+    }
+    svg:not(:first-child) {
+      margin-top: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div>
+      <svg :width="size.width" :height="size.height"
+        @click="svgFFT.running = !svgFFT.running; drawFFT()">
+        <path :d="svgFFT.path" :stroke="svgFFTColor"
+          :stroke-width="svgFFT.width" fill="none"></path>
+      </svg>
+      <svg :width="size.width" :height="size.height"
+        @click="svgRaw.running = !svgRaw.running; drawRaw()">
+        <path :d="svgRaw.path" :stroke="svgRawColor"
+	  :stroke-width="svgRaw.width" fill="none"></path>
+      </svg>
+    </div>
+    <div>
+      <span>{{ Math.round(audio.volumeGain * 100).toString().slice(0, 4).padStart(4, '\u2007') }}%</span>
+      <input type="range" min="0.0" max="20.0" step="0.1" list="scale" v-model.number="audio.volumeGain" />
+      <span>{{ Math.round(audio.analyserGain * 100).toString().slice(0, 4).padStart(4, '\u2007') }}%</span>
+      <input type="range" min="0.0" max="20.0" step="0.1" list="scale" v-model.number="audio.analyserGain" />
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+
+</html>
